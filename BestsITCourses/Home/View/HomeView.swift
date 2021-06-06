@@ -26,7 +26,6 @@ class HomeView: UIView {
         var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier:cellId )
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
@@ -52,11 +51,11 @@ class HomeView: UIView {
     }
     
     private func setupConstraints() {
-        addSubview(collectionView)
-        collectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        collectionView.bottomAnchor.constraint(equalTo: self.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        addSubviews([collectionView])
+        
+        collectionView
+            .edgesToSuperView(excluding: .top, toSafeArea: true)
+            .topToSuperview(10, toSafeArea: true)
     }
     
     func reloadData() {

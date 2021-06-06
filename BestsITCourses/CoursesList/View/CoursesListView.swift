@@ -12,7 +12,6 @@ class CoursesListView: UIView {
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = .white
-        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = UITableView.automaticDimension
         tableView.register(CoursesTableViewCell.self, forCellReuseIdentifier: "cellID")
         return tableView
@@ -36,11 +35,11 @@ class CoursesListView: UIView {
     }
     
     private func setupUI() {
-        addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        tableView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        tableView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor).isActive = true
+        addSubviews([tableView])
+        tableView
+            .topToSuperview(10, toSafeArea: true)
+            .edgesToSuperView(excluding: .top, toSafeArea: true)
+        
     }
     
     private func configure() {
@@ -59,7 +58,7 @@ extension CoursesListView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath as IndexPath) as? CoursesTableViewCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath as IndexPath) as? CoursesTableViewCell else { return UITableViewCell() }
         if let course = viewModel.categorie?.courses[indexPath.row] {
             cell.setup(course: course)
         }
