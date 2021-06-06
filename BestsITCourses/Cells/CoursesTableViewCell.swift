@@ -8,16 +8,75 @@
 import UIKit
 
 class CoursesTableViewCell: UITableViewCell {
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    
+    lazy var cellImage: UIImageView = {
+        var imageView = UIImageView()
+        return imageView
+    }()
+    
+    lazy var cellTitleLabel: UILabel = {
+        var label = UILabel()
+        label.font = .boldSystemFont(ofSize: 16)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    lazy var cellDescriptionLabel: UILabel = {
+        var label = UILabel()
+        label.textAlignment = .natural
+        label.textColor = .systemGray
+        label.font = label.font.withSize(12)
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cellImage.image = nil
+        cellTitleLabel.text = nil
+        cellDescriptionLabel.text = nil
     }
-
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setup(course: Course) {
+        cellImage.from(url: course.courseImage)
+        cellTitleLabel.text = course.courseName
+        cellDescriptionLabel.text = course.courseDescription
+        setupUI()
+    }
+    
+    private func setupUI() {
+        
+        contentView.addSubviews([cellImage, cellTitleLabel, cellDescriptionLabel])
+        
+        cellImage
+            .topToSuperview(8)
+            .leadingToSuperview(8, priority: .required)
+            .heightTo(100, priority: .required)
+            .widthTo(100, priority: .required)
+            .bottomToSuperview(8)
+    
+        cellTitleLabel
+            .topToTop(of: cellImage)
+            .leadingToTrailing(of: cellImage, priority: .required, margin: 8)
+            .trailingToSuperview(8, priority: .required)
+        
+        
+        cellDescriptionLabel
+            .topToBottom(of: cellTitleLabel, margin: 4)
+            .leadingToTrailing(of: cellImage, priority: .required, margin: 8)
+            .trailingToSuperview(8, priority: .required)
+            .bottomToSuperview(16, priority: .defaultHigh)
+        
+        contentView.layoutSubviews()
+        
+    }
 }

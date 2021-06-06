@@ -22,6 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         /// 3. Create a view hierarchy programmatically
         let viewController = HomeViewController()
         let navigation = UINavigationController(rootViewController: viewController)
+        navigation.navigationBar.tintColor = .black
+        navigation.navigationBar.topItem?.backButtonTitle = ""
         
         /// 4. Set the root view controller of the window with your view controller
         window.rootViewController = navigation

@@ -13,7 +13,8 @@ class CoursesListView: UIView {
         let tableView = UITableView()
         tableView.backgroundColor = .white
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellID")
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.register(CoursesTableViewCell.self, forCellReuseIdentifier: "cellID")
         return tableView
     }()
     
@@ -58,8 +59,10 @@ extension CoursesListView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath as IndexPath)
-        cell.textLabel?.text = viewModel.categorie?.courses[indexPath.row].courseName ?? ""
+       guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath as IndexPath) as? CoursesTableViewCell else { return UITableViewCell() }
+        if let course = viewModel.categorie?.courses[indexPath.row] {
+            cell.setup(course: course)
+        }
         return cell
     }
     

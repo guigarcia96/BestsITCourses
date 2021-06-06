@@ -28,5 +28,10 @@ class CoursesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = myView
+        setupTitle()
+    }
+    
+    private func setupTitle() {
+        title = viewModel.categorie?.name
     }
 }

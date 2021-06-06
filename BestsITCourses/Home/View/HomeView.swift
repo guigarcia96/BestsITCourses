@@ -30,12 +30,7 @@ class HomeView: UIView {
         return collectionView
     }()
     
-//    private var newTapAction: (_ categorie: Categories) -> Void
-    
-    init(
-//        newTapAction: @escaping (_ categorie: Categories) -> Void
-    ) {
-//        self.newTapAction = newTapAction
+    init() {
         super.init(frame: .zero)
         configure()
         setupUI()
