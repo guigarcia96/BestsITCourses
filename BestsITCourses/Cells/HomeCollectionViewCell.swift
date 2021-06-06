@@ -11,7 +11,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     
     lazy var cellImage: UIImageView = {
         var imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     
@@ -20,7 +20,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .center
         label.textColor = .white
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -51,17 +50,20 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupConstrains() {
-        contentView.addSubview(cellImage)
-        contentView.addSubview(cellLabel)
+        contentView.addSubviews([cellImage, cellLabel])
         
-        cellImage.widthAnchor.constraint(lessThanOrEqualToConstant: 80).isActive = true
-        cellImage.heightAnchor.constraint(equalToConstant: 80).isActive = true
         cellImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         cellImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
+        cellImage
+            .heightTo(80)
+            .widthTo(80)
         
         cellLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        cellLabel.topAnchor.constraint(equalTo: cellImage.bottomAnchor, constant: 8).isActive = true
-        cellLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        cellLabel
+            .topToBottom(of: cellImage, margin: 12)
+            .bottomToSuperview(8)
+        
+        contentView.layoutSubviews()
         
     }
     
