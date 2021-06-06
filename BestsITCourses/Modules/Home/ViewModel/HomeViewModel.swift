@@ -37,6 +37,8 @@ class HomeViewModel {
         // Set any properties (in this case, don't hide the nav bar)
         vc.searchController.hidesNavigationBarDuringPresentation = false
         
+        // Set The Placehold for the SearchBar
+        vc.searchController.searchBar.placeholder = "Digite a Categoria Desejada"
         
         // Make this class the delegate and present the search
         vc.searchController.searchBar.delegate = vc.self
