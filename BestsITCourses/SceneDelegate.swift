@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let navigation = UINavigationController(rootViewController: viewController)
         navigation.navigationBar.tintColor = .black
         navigation.navigationBar.topItem?.backButtonTitle = ""
+        navigation.navigationBar.prefersLargeTitles = true
         
         /// 4. Set the root view controller of the window with your view controller
         window.rootViewController = navigation

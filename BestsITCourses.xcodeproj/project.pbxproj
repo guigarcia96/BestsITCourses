@@ -196,6 +196,15 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		C4C6D02D266D6A0C00F307F2 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				C4D1792826643C3A0001EE3A /* Home */,
+				C4C6CFFB266C03D000F307F2 /* CoursesList */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
 		C4D178E32664391A0001EE3A = {
 			isa = PBXGroup;
 			children = (
@@ -219,12 +228,11 @@
 		C4D178EE2664391A0001EE3A /* BestsITCourses */ = {
 			isa = PBXGroup;
 			children = (
+				C4C6D02D266D6A0C00F307F2 /* Modules */,
 				C4C6D029266D593F00F307F2 /* Utils */,
-				C4C6CFFB266C03D000F307F2 /* CoursesList */,
 				C467792A26652FD400A2CD10 /* Services */,
 				C467792126652C1D00A2CD10 /* Models */,
 				C4677918266528CD00A2CD10 /* Cells */,
-				C4D1792826643C3A0001EE3A /* Home */,
 				C4D178EF2664391A0001EE3A /* AppDelegate.swift */,
 				C4D178F12664391A0001EE3A /* SceneDelegate.swift */,
 				C4D178F82664391B0001EE3A /* Assets.xcassets */,
