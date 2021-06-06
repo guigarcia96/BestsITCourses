@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CoursesListViewContract: class {
+    func didTapCourse(a course: Course)
+}
+
 class CoursesListView: UIView {
     
     lazy var tableView: UITableView = {
@@ -18,6 +22,8 @@ class CoursesListView: UIView {
     }()
     
     var viewModel:CoursesListViewModel
+    
+    weak var delegate: CoursesListViewContract?
     
     init(
         viewModel: CoursesListViewModel
@@ -63,6 +69,11 @@ extension CoursesListView: UITableViewDelegate, UITableViewDataSource {
             cell.setup(course: course)
         }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let course = viewModel.categorie?.courses[indexPath.row] else { return }
+        delegate?.didTapCourse(a: course)
     }
     
     

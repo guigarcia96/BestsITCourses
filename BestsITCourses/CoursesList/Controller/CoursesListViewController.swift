@@ -13,6 +13,7 @@ class CoursesListViewController: UIViewController {
     
     lazy var myView: CoursesListView = {
         let view = CoursesListView(viewModel: viewModel)
+        view.delegate = self
         return view
     }()
     
@@ -35,3 +36,11 @@ class CoursesListViewController: UIViewController {
         title = viewModel.categorie?.name
     }
 }
+extension CoursesListViewController: CoursesListViewContract {
+    func didTapCourse(a course: Course) {
+        present(HomeViewController(), animated: true)
+    }
+    
+    
+}
+
