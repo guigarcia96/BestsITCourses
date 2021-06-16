@@ -1,0 +1,6 @@
+framework module Pods_BestsITCoursesTests {
+  umbrella header "Pods-BestsITCoursesTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
