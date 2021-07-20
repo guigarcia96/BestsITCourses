@@ -38,7 +38,9 @@ class CoursesListViewController: UIViewController {
 }
 extension CoursesListViewController: CoursesListViewContract {
     func didTapCourse(a course: Course) {
-        present(HomeViewController(), animated: true)
+        let courseVM = DetailsViewModel(course: course)
+        let courseVC = DetailsViewController(viewModel: courseVM)
+        navigationController?.pushViewController(courseVC, animated: true)
     }
     
     
