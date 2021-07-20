@@ -50,7 +50,7 @@ class DetailsView: UIView {
     }
     
     private func setupYTPlayer() {
-        ytView.load(withVideoId: "bsM1qdGAVbU", playerVars: ["playsinline": 1])
+        ytView.load(withVideoId: viewModel.course?.courseID ?? "", playerVars: ["playsinline": 1])
     }
     
     private func setupText() {
