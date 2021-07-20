@@ -13,23 +13,25 @@ class DetailsView: UIView {
     
     var viewModel:DetailsViewModel
     
-    private lazy var ytView: YTPlayerView = {
-        var view = YTPlayerView()
-        return view
+    lazy var titleLabel:UILabel = {
+        let title = UILabel()
+        title.font = .boldSystemFont(ofSize: 16)
+        title.lineBreakMode = .byWordWrapping
+        title.numberOfLines = 0
+        return title
     }()
     
-    lazy var titleLabel: UILabel = {
-        var label = UILabel()
-        label.textColor = .black
-        label.numberOfLines = 0
-        return label
+    lazy var subtitleLabel:UILabel = {
+        let subtitleLabel = UILabel()
+        subtitleLabel.font = .systemFont(ofSize: 14)
+        subtitleLabel.numberOfLines = 0
+        return subtitleLabel
     }()
     
-    lazy var subtitleLabel: UILabel = {
-        var label = UILabel()
-        label.textColor = .systemGray
-        label.numberOfLines = 0
-        return label
+    lazy var ytView: YTPlayerView = {
+        let playerView = YTPlayerView()
+        playerView.delegate = self
+        return playerView
     }()
     
     init(
@@ -38,8 +40,8 @@ class DetailsView: UIView {
         self.viewModel = viewModel
         super.init(frame: .zero)
         backgroundColor = .white
-        setupConstrainsts()
         setupText()
+        setupConstrainsts()
         setupYTPlayer()
     }
     
@@ -48,7 +50,6 @@ class DetailsView: UIView {
     }
     
     private func setupYTPlayer() {
-        ytView.delegate = self
         ytView.load(withVideoId: "bsM1qdGAVbU", playerVars: ["playsinline": 1])
     }
     
@@ -59,20 +60,26 @@ class DetailsView: UIView {
     
     private func setupConstrainsts() {
         addSubviews([ytView, titleLabel, subtitleLabel])
+        
         ytView
             .topToSuperview(10, toSafeArea: true)
-            .horizontalToSuperview()
             .heightTo(300)
+            .horizontalToSuperview()
         
         titleLabel
             .topToBottom(of: ytView, margin: 8)
-            .horizontalToSuperview(4, priority: .required)
+            .leadingToSuperview(4, priority: .required)
+            .trailingToSuperview(4, priority: .required)
         
         subtitleLabel
             .topToBottom(of: titleLabel, margin: 8)
-            .horizontalToSuperview(4, priority: .required)
+            .leadingToSuperview(4)
+            .trailingToSuperview(4)
+        
+        layoutSubviews()
     }
 }
+
 extension DetailsView: YTPlayerViewDelegate {
     
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
