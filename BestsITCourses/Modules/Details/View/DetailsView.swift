@@ -9,23 +9,19 @@ import Foundation
 import UIKit
 import youtube_ios_player_helper
 
+
 class DetailsView: UIView {
     
     var viewModel:DetailsViewModel
     
-    lazy var titleLabel:UILabel = {
-        let title = UILabel()
-        title.font = .boldSystemFont(ofSize: 16)
-        title.lineBreakMode = .byWordWrapping
-        title.numberOfLines = 0
-        return title
-    }()
     
-    lazy var subtitleLabel:UILabel = {
-        let subtitleLabel = UILabel()
-        subtitleLabel.font = .systemFont(ofSize: 14)
-        subtitleLabel.numberOfLines = 0
-        return subtitleLabel
+    lazy var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.backgroundColor = .white
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.separatorStyle = .none
+        tableView.register(TitleAndSubtitleTableViewCell.self, forCellReuseIdentifier: "cellID")
+        return tableView
     }()
     
     lazy var ytView: YTPlayerView = {
@@ -40,7 +36,7 @@ class DetailsView: UIView {
         self.viewModel = viewModel
         super.init(frame: .zero)
         backgroundColor = .white
-        setupText()
+        configure()
         setupConstrainsts()
         setupYTPlayer()
     }
@@ -53,31 +49,33 @@ class DetailsView: UIView {
         ytView.load(withVideoId: viewModel.course?.courseID ?? "", playerVars: ["playsinline": 1])
     }
     
-    private func setupText() {
-        titleLabel.text = viewModel.course?.courseName
-        subtitleLabel.text = viewModel.course?.courseDescription
+    private func configure() {
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
+    
     private func setupConstrainsts() {
-        addSubviews([ytView, titleLabel, subtitleLabel])
+        addSubviews([ytView, tableView])
         
         ytView
-            .topToSuperview(10, toSafeArea: true)
+            .topToSuperview(toSafeArea: true)
             .heightTo(300)
+            .leadingToLeading(of: self)
+            .trailingToTrailing(of: self)
+        
+        tableView
+            .topToBottom(of: ytView)
             .horizontalToSuperview()
-        
-        titleLabel
-            .topToBottom(of: ytView, margin: 8)
-            .leadingToSuperview(4, priority: .required)
-            .trailingToSuperview(4, priority: .required)
-        
-        subtitleLabel
-            .topToBottom(of: titleLabel, margin: 8)
-            .leadingToSuperview(4)
-            .trailingToSuperview(4)
+            .bottomToSuperview()
         
         layoutSubviews()
     }
+    
+    private func reloadData() {
+        tableView.reloadData()
+    }
+    
 }
 
 extension DetailsView: YTPlayerViewDelegate {
@@ -86,4 +84,19 @@ extension DetailsView: YTPlayerViewDelegate {
         playerView.playVideo()
     }
     
+}
+
+extension DetailsView: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.getPopulateDetailsViewArray().count
+       
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellID", for: indexPath as IndexPath) as? TitleAndSubtitleTableViewCell else { return UITableViewCell() }
+            let detailsInfoArray = viewModel.getPopulateDetailsViewArray()
+            let detailsInfo = detailsInfoArray[indexPath.row]
+            cell.setup(title: detailsInfo.title, subtitle: detailsInfo.subtitle)
+            return cell
+    }
 }
