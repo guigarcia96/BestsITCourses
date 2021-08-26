@@ -8,9 +8,9 @@
 import Foundation
 
 class CoursesListViewModel {
-    
+
     var categorie: Categories?
-    
+
     init(categorie: Categories) {
         self.categorie = categorie
     }

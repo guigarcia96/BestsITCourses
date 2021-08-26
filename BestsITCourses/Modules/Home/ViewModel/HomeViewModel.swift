@@ -12,15 +12,15 @@ class HomeViewModel {
     var results:[Categories] = []
     var categories:[Categories] = []
     weak var delegate: HomeView?
-    
+
     init() {
         getCategories()
     }
-    
+
     private func getCategories() {
         let categories = CategoriesService()
-        
-        categories.getCategories{ [weak self](result) in
+
+        categories.getCategories { [weak self](result) in
             switch result {
             case .success(let categories):
                 self?.results = categories
@@ -31,20 +31,20 @@ class HomeViewModel {
             }
         }
     }
-    
-    func showSearchBar(vc: HomeViewController) {
-        
+
+    func showSearchBar(viewController: HomeViewController) {
+
         // Set any properties (in this case, don't hide the nav bar)
-        vc.searchController.hidesNavigationBarDuringPresentation = false
-        
+        viewController.searchController.hidesNavigationBarDuringPresentation = false
+
         // Set The Placehold for the SearchBar
-        vc.searchController.searchBar.placeholder = "Digite a Categoria Desejada"
-        
+        viewController.searchController.searchBar.placeholder = "Digite a Categoria Desejada"
+
         // Make this class the delegate and present the search
-        vc.searchController.searchBar.delegate = vc.self
-        vc.present(vc.searchController, animated: true, completion: nil)
+        viewController.searchController.searchBar.delegate = viewController.self
+        viewController.present(viewController.searchController, animated: true, completion: nil)
     }
-    
+
     func filterData(searchText: String) {
         categories = results
         if searchText != "" {
@@ -53,20 +53,18 @@ class HomeViewModel {
             }
             categories = filteredList
         }
-        
+
         delegate?.reloadData()
     }
-    
+
     func cancelSearchBarButtonTapped(_ controller: UISearchController) {
         categories = results
         delegate?.reloadData()
         controller.dismiss(animated: true)
     }
-    
+
     func returnButtonInKeyboardWasTapped(_ controller: UISearchController) {
         controller.dismiss(animated: true)
     }
-    
-    
-    
+
 }

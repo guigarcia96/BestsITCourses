@@ -8,6 +8,7 @@
 import UIKit
 
 public extension NSLayoutConstraint {
+    // swiftlint:disable identifier_name
 
     func off() {
         isActive =  false
@@ -81,8 +82,9 @@ public extension UIView {
 
     func bottomConstraint() -> NSLayoutConstraint? {
         if let constraints = superview?.constraints {
-            for constraint in constraints where itemMatch(constraint: constraint,
-                                                          layoutAttribute: NSLayoutConstraint.Attribute.bottom) {
+            for constraint in constraints
+            where itemMatch(constraint: constraint,
+            layoutAttribute: NSLayoutConstraint.Attribute.bottom) {
                 return constraint
             }
         }
@@ -91,8 +93,9 @@ public extension UIView {
 
     func leadingConstraint() -> NSLayoutConstraint? {
         if let constraints = superview?.constraints {
-            for constraint in constraints where itemMatch(constraint: constraint,
-                                                          layoutAttribute: NSLayoutConstraint.Attribute.leading) {
+            for constraint in constraints
+            where itemMatch(constraint: constraint,
+                            layoutAttribute: NSLayoutConstraint.Attribute.leading) {
                 return constraint
             }
         }
@@ -101,16 +104,19 @@ public extension UIView {
 
     func trailingConstraint() -> NSLayoutConstraint? {
         if let constraints = superview?.constraints {
-            for constraint in constraints where itemMatch(constraint: constraint,
-                                                          layoutAttribute: NSLayoutConstraint.Attribute.trailing) {
+            for constraint in constraints
+            where itemMatch(constraint: constraint,
+                            layoutAttribute: NSLayoutConstraint.Attribute.trailing) {
                 return constraint
             }
         }
         return nil
     }
 
-    private func itemMatch(constraint: NSLayoutConstraint, layoutAttribute: NSLayoutConstraint.Attribute) -> Bool {
-        if let firstItem = constraint.firstItem as? UIView, let secondItem = constraint.secondItem as? UIView {
+    private func itemMatch(constraint: NSLayoutConstraint,
+                           layoutAttribute: NSLayoutConstraint.Attribute) -> Bool {
+        if let firstItem = constraint.firstItem as? UIView,
+           let secondItem = constraint.secondItem as? UIView {
             let firstItemMatch = firstItem == self && constraint.firstAttribute == layoutAttribute
             let secondItemMatch = secondItem == self && constraint.secondAttribute == layoutAttribute
             return firstItemMatch || secondItemMatch
@@ -141,7 +147,9 @@ public extension UIView {
 public extension UIView {
 
     @discardableResult
-    func topToBottom(of element: UIView, priority: UILayoutPriority = .defaultHigh, margin: CGFloat = 0.0) -> Self {
+    func topToBottom(of element: UIView,
+                     priority: UILayoutPriority = .defaultHigh,
+                     margin: CGFloat = 0.0) -> Self {
         let constraint = self.topAnchor.constraint(equalTo: element.bottomAnchor, constant: margin)
         constraint.priority = priority
         constraint.isActive = true
@@ -149,7 +157,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func bottomToTop(of element: UIView, priority: UILayoutPriority = .defaultHigh, margin: CGFloat = 0.0) -> Self {
+    func bottomToTop(of element: UIView,
+                     priority: UILayoutPriority = .defaultHigh,
+                     margin: CGFloat = 0.0) -> Self {
         let constraint = self.bottomAnchor.constraint(equalTo: element.topAnchor, constant: margin)
         constraint.priority = priority
         constraint.isActive = true
@@ -157,7 +167,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func leadingToTrailing(of element: UIView, priority: UILayoutPriority = .defaultHigh, margin: CGFloat = 0.0) -> Self {
+    func leadingToTrailing(of element: UIView,
+                           priority: UILayoutPriority = .defaultHigh,
+                           margin: CGFloat = 0.0) -> Self {
         let constraint = self.leadingAnchor.constraint(equalTo: element.trailingAnchor, constant: margin)
         constraint.priority = priority
         constraint.isActive = true
@@ -165,7 +177,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func trailingToLeading(of element: UIView, priority: UILayoutPriority = .defaultHigh, margin: CGFloat = 0.0) -> Self {
+    func trailingToLeading(of element: UIView,
+                           priority: UILayoutPriority = .defaultHigh,
+                           margin: CGFloat = 0.0) -> Self {
         let constraint = self.trailingAnchor.constraint(equalTo: element.leadingAnchor, constant: margin)
         constraint.priority = priority
         constraint.isActive = true
@@ -173,7 +187,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func topToTop(of element: UIView, priority: UILayoutPriority = .defaultHigh, margin: CGFloat = 0.0) -> Self {
+    func topToTop(of element: UIView,
+                  priority: UILayoutPriority = .defaultHigh,
+                  margin: CGFloat = 0.0) -> Self {
         let constraint = self.topAnchor.constraint(equalTo: element.topAnchor, constant: margin)
         constraint.priority = priority
         constraint.isActive = true
@@ -181,7 +197,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func bottomToBottom(of element: UIView, priority: UILayoutPriority = .defaultHigh, margin: CGFloat = 0.0) -> Self {
+    func bottomToBottom(of element: UIView,
+                        priority: UILayoutPriority = .defaultHigh,
+                        margin: CGFloat = 0.0) -> Self {
         let constraint = self.bottomAnchor.constraint(equalTo: element.bottomAnchor, constant: margin)
         constraint.priority = priority
         constraint.isActive = true
@@ -189,7 +207,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func leadingToLeading(of element: UIView, priority: UILayoutPriority = .defaultHigh, margin: CGFloat = 0.0) -> Self {
+    func leadingToLeading(of element: UIView,
+                          priority: UILayoutPriority = .defaultHigh,
+                          margin: CGFloat = 0.0) -> Self {
         let constraint = self.leadingAnchor.constraint(equalTo: element.leadingAnchor, constant: margin)
         constraint.priority = priority
         constraint.isActive = true
@@ -197,7 +217,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func trailingToTrailing(of element: UIView, priority: UILayoutPriority = .defaultHigh, margin: CGFloat = 0.0) -> Self {
+    func trailingToTrailing(of element: UIView,
+                            priority: UILayoutPriority = .defaultHigh,
+                            margin: CGFloat = 0.0) -> Self {
         let constraint = self.trailingAnchor.constraint(equalTo: element.trailingAnchor, constant: margin)
         constraint.priority = priority
         constraint.isActive = true
@@ -214,9 +236,9 @@ public extension UIView {
     }
 
     @discardableResult
-    func setCompressionResistance(_ priority: UILayoutPriority = .defaultHigh, for axis: NSLayoutConstraint.Axis) -> Self {
+    func setCompressionResistance(_ priority: UILayoutPriority = .defaultHigh,
+                                  for axis: NSLayoutConstraint.Axis) -> Self {
         setContentCompressionResistancePriority(priority, for: axis)
         return self
     }
 }
-

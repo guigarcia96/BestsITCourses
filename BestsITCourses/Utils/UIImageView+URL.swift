@@ -8,6 +8,7 @@
 import UIKit
 
 public extension UIImageView {
+    // swiftlint:disable identifier_name
     func from(url: String, placeholder: UIImage? = nil) {
         image = placeholder
         guard let url = URL(string: url) else { return }
@@ -16,10 +17,7 @@ public extension UIImageView {
                 guard error == nil, let data = data, let myImage = UIImage(data: data) else {
                     return
                 }
-                
-                
-                DispatchQueue.main.async
-                { [weak self] in
+                DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
                     UIView.transition(with: self,
                                       duration: 0.5,
