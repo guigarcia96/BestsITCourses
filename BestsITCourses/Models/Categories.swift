@@ -25,5 +25,3 @@ struct Course: Codable {
         case courseName, courseImage, courseDescription
     }
 }
-
-

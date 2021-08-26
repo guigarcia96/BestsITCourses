@@ -367,6 +367,7 @@
 				C4D178E92664391A0001EE3A /* Frameworks */,
 				C4D178EA2664391A0001EE3A /* Resources */,
 				B4D585A248779B478D84646F /* [CP] Embed Pods Frameworks */,
+				C4D7E88F26D7C14C00FABC70 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -567,6 +568,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BestsITCourses/Pods-BestsITCourses-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		C4D7E88F26D7C14C00FABC70 /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint autocorrect\nelse\necho \"warning: Swiftlint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		F9D44F4D722CA6F79B7EDA20 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

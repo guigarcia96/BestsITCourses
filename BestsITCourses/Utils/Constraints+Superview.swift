@@ -8,8 +8,7 @@
 import UIKit
 
 public extension UIView {
-
-    //swiftlint:disable line_length
+    // swiftlint:disable line_length
     @discardableResult
     func topToSuperview(_ margin: CGFloat = 0.0, relation: NSLayoutConstraint.Relation = .equal, multiplier: CGFloat = 1, priority: UILayoutPriority = .defaultHigh, toSafeArea: Bool = false, isActive: Bool = true) -> Self {
         guard let superview = self.superview else { return self }
@@ -178,5 +177,3 @@ public extension UIView {
         return self
     }
 }
-//swiftlint:enable line_length
-
