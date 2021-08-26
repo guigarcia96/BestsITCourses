@@ -58,11 +58,10 @@ class CoursesTableViewCell: UITableViewCell {
         contentView.addSubviews([cellImage, cellTitleLabel, cellDescriptionLabel])
         
         cellImage
-            .topToSuperview(8)
+            .verticalToSuperview(8)
             .leadingToSuperview(8, priority: .required)
             .heightTo(100, priority: .required)
             .widthTo(100, priority: .required)
-            .bottomToSuperview(8)
     
         cellTitleLabel
             .topToTop(of: cellImage)
