@@ -34,10 +34,10 @@ class HomeViewModelTests: XCTestCase {
     }
     
     func testFilteredData() {
-        homeViewModel.filterData(searchText: "Teste 1")
+        homeViewModel.filterData(searchText: "Swift")
         let viewModelResult = homeViewModel.categories
-        let course = Course(courseID: "1", courseName: "TESTE 1", courseImage: "http://teste1.com", courseDescription: "Mocked Test 1")
-        let category = Categories(id: "1", name: "Teste 1", imageURL: "https://img2.gratispng.com/20180716/bbv/kisspng-swift-apple-logo-apple-vector-5b4c4b78df8b61.3778424215317267129157.jpg", color: "#000000", courses: [course])
+        let course = Course(courseID: "1", courseName: "Aprenda Swift - Inicio", courseImage: "", courseDescription: "Aprenda Swift do 0 ao profissional")
+        let category = Categories(id: "1", name: "Swift", imageURL: "https://img2.gratispng.com/20180716/bbv/kisspng-swift-apple-logo-apple-vector-5b4c4b78df8b61.3778424215317267129157.jpg", color: "#000000", courses: [course])
         
         XCTAssertEqual(viewModelResult.first?.name, category.name)
         XCTAssertEqual(viewModelResult.first?.id, category.id)
