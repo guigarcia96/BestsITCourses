@@ -11,6 +11,7 @@ import UIKit
 class HomeViewModel {
     var results:[Categories] = []
     var categories:[Categories] = []
+    var searchedValue = ""
     weak var delegate: HomeView?
 
     init() {
@@ -18,7 +19,7 @@ class HomeViewModel {
     }
 
     private func getCategories() {
-        let categories = CategoriesService()
+        let categories = ReturnCategorieService.shared.returnService()
 
         categories.getCategories { [weak self](result) in
             switch result {
@@ -33,15 +34,18 @@ class HomeViewModel {
     }
 
     func showSearchBar(viewController: HomeViewController) {
-
+        
+        viewController.searchController.searchBar.text = searchedValue
+        
         // Set any properties (in this case, don't hide the nav bar)
         viewController.searchController.hidesNavigationBarDuringPresentation = false
-
+        
         // Set The Placehold for the SearchBar
         viewController.searchController.searchBar.placeholder = "Digite a Categoria Desejada"
 
         // Make this class the delegate and present the search
         viewController.searchController.searchBar.delegate = viewController.self
+        viewController.searchController.searchBar.enablesReturnKeyAutomatically = false
         viewController.present(viewController.searchController, animated: true, completion: nil)
     }
 
@@ -53,17 +57,21 @@ class HomeViewModel {
             }
             categories = filteredList
         }
-
         delegate?.reloadData()
     }
 
     func cancelSearchBarButtonTapped(_ controller: UISearchController) {
+        if searchedValue != "" {
+            controller.dismiss(animated: true)
+            return
+        }
         categories = results
         delegate?.reloadData()
         controller.dismiss(animated: true)
     }
 
     func returnButtonInKeyboardWasTapped(_ controller: UISearchController) {
+        searchedValue = controller.searchBar.text ?? ""
         controller.dismiss(animated: true)
     }
 
