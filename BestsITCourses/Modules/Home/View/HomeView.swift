@@ -14,12 +14,12 @@ protocol HomeViewDelegate: AnyObject {
 class HomeView: UIView {
 
     private let cellId = "cellID"
-    private let spacing:CGFloat = 16.0
+    private let spacing:CGFloat = 16
     var viewModel = HomeViewModel()
     weak var delegate: HomeViewDelegate?
 
     private lazy var collectionView: UICollectionView = {
-        var layout = UICollectionViewFlowLayout()
+        let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
         layout.minimumLineSpacing = spacing
         layout.minimumInteritemSpacing = spacing
@@ -28,6 +28,8 @@ class HomeView: UIView {
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier:cellId )
         return collectionView
     }()
+    
+ 
 
     init() {
         super.init(frame: .zero)
@@ -52,10 +54,13 @@ class HomeView: UIView {
 
     private func setupConstraints() {
         addSubviews([collectionView])
-
+    
         collectionView
-            .edgesToSuperView(excluding: .top, toSafeArea: true)
-            .topToSuperview(10, toSafeArea: true)
+            .topToSuperview(10)
+            .leadingToSuperview(4)
+            .trailingToSuperview(4)
+            .bottomToSuperview(0, toSafeArea: true)
+            
     }
 
     func reloadData() {
@@ -83,14 +88,16 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         let numberOfItemsPerRow:CGFloat = 2
         let spacingBetweenCells:CGFloat = 16
-
-        let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells) // Amount of total spacing in a row
+        
+        let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells) //Amount of total spacing in a row
+        
         let width = (collectionView.bounds.width - totalSpacing)/numberOfItemsPerRow
         return CGSize(width: width, height: width)
-
+        
+        
     }
 
 }
