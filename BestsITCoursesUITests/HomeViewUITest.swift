@@ -28,7 +28,7 @@ class HomeViewUITest: BestITCoursesXCTestCase {
         app.navigationBars["Categorias"].buttons["Search"].tap()
         XCTAssertTrue(app.searchFields["Digite a Categoria Desejada"].exists)
         app.searchFields["Digite a Categoria Desejada"].typeText("Swift")
-        app.buttons["buscar"].tap()
+        app.keyboards.buttons["Search"].tap()
         XCTAssertTrue(app.collectionViews.cells.otherElements.containing(.staticText, identifier: "Swift").element.exists)
     }
     
@@ -39,7 +39,7 @@ class HomeViewUITest: BestITCoursesXCTestCase {
         app.navigationBars["Categorias"].buttons["Search"].tap()
         XCTAssertTrue(app.searchFields["Digite a Categoria Desejada"].exists)
         app.searchFields["Digite a Categoria Desejada"].typeText("PHP")
-        app.buttons["buscar"].tap()
+        app.keyboards.buttons["Search"].tap()
         XCTAssertFalse(app.collectionViews.cells.otherElements.containing(.staticText, identifier: "PHP").element.exists)
     }
 
