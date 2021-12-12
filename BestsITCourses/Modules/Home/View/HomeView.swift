@@ -13,15 +13,15 @@ protocol HomeViewDelegate: AnyObject {
 }
 
 class HomeView: UIView {
-    
-    //MARK: PROPERTIES DECLARATION
+
+    // MARK: PROPERTIES DECLARATION
 
     private let cellId = "cellID"
     private let spacing:CGFloat = 16
     weak var viewModel: HomeViewModel?
     weak var delegate: HomeViewDelegate?
-    
-    //MARK: VISUAL COMPONENTS DECLARATION
+
+    // MARK: VISUAL COMPONENTS DECLARATION
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -55,8 +55,8 @@ class HomeView: UIView {
         button.addTarget(self, action: #selector(errorButtonAction), for: .touchUpInside)
         return button
     }()
-    
-    //MARK: INITIALIZERS
+
+    // MARK: INITIALIZERS
 
     init() {
         super.init(frame: .zero)
@@ -69,13 +69,13 @@ class HomeView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: UI FUNCTIONS
+
+    // MARK: UI FUNCTIONS
 
     private func setupUI() {
         backgroundColor = .white
     }
-    
+
     private func setupConstraints() {
         addSubviews([collectionView, errorButton, errorMessage])
 
@@ -97,31 +97,31 @@ class HomeView: UIView {
             .heightTo(40)
 
     }
-    
+
     func showError(_ components: Bool) {
         errorButton.isHidden = !components
         errorMessage.isHidden = !components
     }
-    
-    //MARK: COLLECTIONVIEW CONFIGURATION FUNCTIONS
+
+    // MARK: COLLECTIONVIEW CONFIGURATION FUNCTIONS
 
     private func configure() {
         collectionView.delegate = self
         collectionView.dataSource = self
     }
-    
+
     func reloadData() {
         collectionView.reloadData()
     }
-    
-    //MARK: BUTTON ACTION
+
+    // MARK: BUTTON ACTION
 
     @objc private func errorButtonAction() {
         delegate?.retrySimulation()
     }
 }
 
-    //MARK: EXTENSIONS
+    // MARK: EXTENSIONS
 
 extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
