@@ -9,14 +9,19 @@ import UIKit
 
 protocol HomeViewDelegate: AnyObject {
     func didTap(a categorie: Categories)
+    func retrySimulation()
 }
 
 class HomeView: UIView {
+    
+    //MARK: PROPERTIES DECLARATION
 
     private let cellId = "cellID"
     private let spacing:CGFloat = 16
     weak var viewModel: HomeViewModel?
     weak var delegate: HomeViewDelegate?
+    
+    //MARK: VISUAL COMPONENTS DECLARATION
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -34,6 +39,7 @@ class HomeView: UIView {
         message.isHidden = true
         message.font = message.font.withSize(18)
         message.numberOfLines = 0
+        message.textAlignment = .center
         message.text = "Problema de conexão com o servidor"
         return message
     }()
@@ -41,10 +47,16 @@ class HomeView: UIView {
     private lazy var errorButton: UIButton = {
         let button = UIButton()
         button.isHidden = true
+        button.backgroundColor = .systemRed
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.red.cgColor
         button.setTitle("Tentar Novamente", for: .normal)
-        button.backgroundColor = .black
+        button.addTarget(self, action: #selector(errorButtonAction), for: .touchUpInside)
         return button
     }()
+    
+    //MARK: INITIALIZERS
 
     init() {
         super.init(frame: .zero)
@@ -57,16 +69,13 @@ class HomeView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    //MARK: UI FUNCTIONS
 
     private func setupUI() {
         backgroundColor = .white
     }
-
-    private func configure() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-    }
-
+    
     private func setupConstraints() {
         addSubviews([collectionView, errorButton, errorMessage])
 
@@ -88,16 +97,31 @@ class HomeView: UIView {
             .heightTo(40)
 
     }
+    
+    func showError(_ components: Bool) {
+        errorButton.isHidden = !components
+        errorMessage.isHidden = !components
+    }
+    
+    //MARK: COLLECTIONVIEW CONFIGURATION FUNCTIONS
 
+    private func configure() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+    }
+    
     func reloadData() {
         collectionView.reloadData()
     }
+    
+    //MARK: BUTTON ACTION
 
-    func setupError() {
-        errorButton.isHidden = false
-        errorMessage.isHidden = false
+    @objc private func errorButtonAction() {
+        delegate?.retrySimulation()
     }
 }
+
+    //MARK: EXTENSIONS
 
 extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -110,7 +134,6 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         guard let myCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? HomeCollectionViewCell else {return UICollectionViewCell()}
         myCell.setup(category)
         return myCell
-
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

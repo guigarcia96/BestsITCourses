@@ -28,7 +28,7 @@ class HomeViewModel {
                 self?.categories = self?.results ?? []
                 self?.delegate?.reloadData()
             case .failure:
-                self?.delegate?.setupError()
+                self?.delegate?.showError(true)
             }
         }
     }
@@ -72,6 +72,11 @@ class HomeViewModel {
     func returnButtonInKeyboardWasTapped(_ controller: UISearchController) {
         searchedValue = controller.searchBar.text ?? ""
         controller.dismiss(animated: true)
+    }
+
+    func retrySimulation() {
+        delegate?.showError(false)
+        getCategories()
     }
 
 }

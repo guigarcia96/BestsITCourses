@@ -61,6 +61,10 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
 }
 extension HomeViewController: HomeViewDelegate {
+    func retrySimulation() {
+        viewModel.retrySimulation()
+    }
+
     func didTap(a categorie: Categories) {
         handleNewTap(categorie)
     }
