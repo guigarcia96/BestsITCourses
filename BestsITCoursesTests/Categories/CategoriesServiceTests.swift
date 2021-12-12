@@ -9,7 +9,7 @@ import XCTest
 @testable import BestsITCourses
 
 class CategoriesServiceTests: XCTestCase {
-    
+
    private var categorieService: CategoriesServiceMock!
     private var categories: [Categories]!
     private var categoryError: CategoryError!
@@ -39,11 +39,11 @@ class CategoriesServiceTests: XCTestCase {
             XCTAssertEqual(category.imageURL, element.imageURL)
         }
     }
-    
+
     func testGetCategoriesWithError() {
         categorieService.error = true
         setUp()
-        let error:CategoryError = .invalidURL
+        let error: CategoryError = .invalidURL
         XCTAssertEqual(error, categorieService.getCategoriesError())
     }
 

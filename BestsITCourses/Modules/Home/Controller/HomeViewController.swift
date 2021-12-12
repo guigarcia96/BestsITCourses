@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController, UISearchBarDelegate {
 
-    let viewModel = HomeViewModel()
+    private let viewModel = HomeViewModel()
 
     lazy var myView: HomeView = {
         let view = HomeView()
@@ -22,12 +22,12 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view = myView
-        setupView()
+        setupNavigationBar()
         viewModel.delegate = myView
         myView.viewModel = viewModel
     }
 
-    private func setupView() {
+    private func setupNavigationBar() {
         title = "Categorias"
         let btnSearch = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(addTapped))
         btnSearch.tintColor = .black
@@ -61,6 +61,10 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     }
 }
 extension HomeViewController: HomeViewDelegate {
+    func retrySimulation() {
+        viewModel.retrySimulation()
+    }
+
     func didTap(a categorie: Categories) {
         handleNewTap(categorie)
     }

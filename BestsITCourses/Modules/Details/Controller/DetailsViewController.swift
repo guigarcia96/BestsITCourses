@@ -13,6 +13,7 @@ class DetailsViewController: UIViewController {
 
     lazy var myView: DetailsView = {
         let view = DetailsView(viewModel: viewModel)
+        view.delegate = self
         return view
     }()
 
@@ -29,5 +30,16 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         title = "Detalhes"
         view = myView
+    }
+}
+
+extension DetailsViewController: DetailsViewDelegate {
+    func shareVideo(withURL: String) {
+        let messageWithURL = "Olha esse vídeo que encontrei \(withURL)"
+        let textShare = [messageWithURL]
+        let activityViewController = UIActivityViewController(activityItems: textShare , applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        activityViewController.isModalInPresentation = true
+        self.present(activityViewController, animated: true, completion: nil)
     }
 }

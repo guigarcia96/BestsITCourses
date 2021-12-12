@@ -31,7 +31,7 @@ class BestITCoursesXCTestCase: XCTestCase {
         ]
         app.launch()
     }
-    
+
     func swipeDown() {
         app.swipeDown()
     }
@@ -46,4 +46,3 @@ extension XCUIElement {
         value as? String
     }
 }
-
