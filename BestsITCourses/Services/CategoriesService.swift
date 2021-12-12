@@ -19,25 +19,14 @@ enum CategoryError: Swift.Error, Equatable {
     case errorInResponse
 }
 
-public class ReturnCategorieService {
-    
-    static var shared = ReturnCategorieService()
-    
-    private init() {
-        
-    }
-    
-    func returnService() -> CategoriesProvider {
-        if CommandLine.arguments.contains("mockedData") {
-            return CategoriesServiceMock()
-        } else {
-            return CategoriesService()
-        }
-    }
-}
-
 class CategoriesService: CategoriesProvider {
-    
+
+    #if DEBUG
+        public static var shared: CategoriesProvider = CommandLine.arguments.contains("mockedData") ? CategoriesServiceMock() : CategoriesService()
+    #else
+        public static var shared: CategoriesProvider = CategoriesService()
+    #endif
+
     func getCategories(completion: @escaping (Result<[Categories], CategoryError>) -> Void) {
 
             let serviceString = "https://60b62212fe923b0017c856f1.mockapi.io/api/v1/courses"
