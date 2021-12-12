@@ -9,37 +9,36 @@ import Foundation
 import UIKit
 
 class HomeViewModel {
-    var results:[Categories] = []
-    var categories:[Categories] = []
-    var searchedValue = ""
+    private (set) var results:[Categories] = []
+    private (set) var categories:[Categories] = []
+    private (set) var searchedValue = ""
+    private var categoriesService: CategoriesProvider
     weak var delegate: HomeView?
 
-    init() {
+    init(categoriesService: CategoriesProvider = CategoriesService.shared) {
+        self.categoriesService = categoriesService
         getCategories()
     }
 
     private func getCategories() {
-        let categories = ReturnCategorieService.shared.returnService()
-
-        categories.getCategories { [weak self](result) in
+        categoriesService.getCategories { [weak self](result) in
             switch result {
             case .success(let categories):
                 self?.results = categories
                 self?.categories = self?.results ?? []
                 self?.delegate?.reloadData()
             case .failure:
-                print("No Categories were returned")
+                self?.delegate?.setupError()
             }
         }
     }
 
     func showSearchBar(viewController: HomeViewController) {
-        
         viewController.searchController.searchBar.text = searchedValue
-        
+
         // Set any properties (in this case, don't hide the nav bar)
         viewController.searchController.hidesNavigationBarDuringPresentation = false
-        
+
         // Set The Placehold for the SearchBar
         viewController.searchController.searchBar.placeholder = "Digite a Categoria Desejada"
 
