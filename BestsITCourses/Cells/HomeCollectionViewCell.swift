@@ -56,7 +56,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         cellImage.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         cellImage
             .heightTo(80)
-        
+
         cellLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
         cellLabel
             .topToBottom(of: cellImage, margin: 2)

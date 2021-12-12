@@ -9,7 +9,7 @@ import XCTest
 @testable import BestsITCourses
 
 class DetailsViewModelTests: XCTestCase {
-    
+
     var detailsViewModel: DetailsViewModel!
     var course: Course!
     var details: DetailsViewInfo!
@@ -24,7 +24,7 @@ class DetailsViewModelTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         detailsViewModel = nil
     }
-    
+
     func testGetPopulateDetailsViewArray() {
         let detailsViewInfo = detailsViewModel.getPopulateDetailsViewArray().first
         XCTAssertEqual(detailsViewInfo?.title, details.title)

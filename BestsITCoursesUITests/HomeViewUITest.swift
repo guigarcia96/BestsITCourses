@@ -14,11 +14,10 @@ class HomeViewUITest: BestITCoursesXCTestCase {
         continueAfterFailure = false
     }
 
-    
     func testBestITCourseHasSwiftCategory() {
         launchWith()
         let app = XCUIApplication()
         XCTAssertTrue(app.collectionViews.cells.otherElements.containing(.staticText, identifier: "Swift").element.exists)
     }
-    
+
 }

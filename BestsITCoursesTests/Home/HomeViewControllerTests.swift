@@ -9,8 +9,8 @@ import XCTest
 @testable import BestsITCourses
 
 class HomeViewControllerTests: XCTestCase {
-    
-    private var homeViewController:HomeViewController!
+
+    private var homeViewController: HomeViewController!
 
     override func setUpWithError() throws {
         homeViewController = HomeViewController()
@@ -19,7 +19,7 @@ class HomeViewControllerTests: XCTestCase {
     override func tearDownWithError() throws {
         homeViewController = nil
     }
-    
+
     func testSetupView() {
         homeViewController.viewDidLoad()
         XCTAssertEqual(homeViewController.title, "Categorias")
